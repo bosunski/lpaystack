@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 return [
     /**
+     * Paystack WebHook URL
+     */
+    'webhookUrl' => '/paystack/hook',
+
+    /**
      * Public Key From Paystack Dashboard
      *
      */
@@ -55,5 +60,4 @@ return [
             'cache'         => false,
         ],
     ],
-    'webhookUrl' => '/paystack/hook',
 ];
