@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/paystack/hook', '\Unicodeveloper\Paystack\Controllers\WebHookController@handleWebHook');
+Route::post('/paystack/hook', '\Unicodeveloper\Paystack\Controllers\WebHookController@handleWebHook');
