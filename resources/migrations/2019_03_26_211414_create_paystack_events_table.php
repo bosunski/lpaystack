@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
-class CreateChargesTable extends Migration
+class CreatePaystackEventsTable extends Migration
 {
     /**
      * Run the migrations.
