@@ -1,6 +1,6 @@
 <?php
 
-namespace Unicodeveloper\Model;
+namespace Unicodeveloper\Paystack\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
