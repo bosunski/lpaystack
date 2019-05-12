@@ -14,7 +14,7 @@ class WebHookController extends Controller
 
         PaystackEvent::create($data);
 
-        event($data['event']);
+        event($data['event'], $data['payload']);
 
         return response([], 200);
     }

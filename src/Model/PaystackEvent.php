@@ -9,4 +9,8 @@ class PaystackEvent extends Model
     protected $fillable = [
         'payload', 'event'
     ];
+
+    protected $casts = [
+        'payload' => 'object',
+    ];
 }
