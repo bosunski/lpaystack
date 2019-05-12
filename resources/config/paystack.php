@@ -55,4 +55,5 @@ return [
             'cache'         => false,
         ],
     ],
+    'webhookUrl' => '/payment/hook',
 ];

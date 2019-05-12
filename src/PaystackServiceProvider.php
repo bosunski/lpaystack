@@ -35,6 +35,8 @@ class PaystackServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setupConfig();
+        $this->loadRoutes();
+        $this->loadMigrations();
     }
 
     /**
@@ -53,6 +55,16 @@ class PaystackServiceProvider extends ServiceProvider
         }
 
         $this->mergeConfigFrom($config, 'paystack');
+    }
+
+    protected function loadRoutes(): void
+    {
+        $this->loadRoutesFrom(realpath($raw = __DIR__.'/../resources/routes.php') ?: $raw);
+    }
+
+    protected function loadMigrations(): void
+    {
+        $this->loadMigrationsFrom(realpath($raw = __DIR__.'/../resources/migrations') ?: $raw);
     }
 
     /**
