@@ -41,6 +41,9 @@ return [
      */
     'merchantEmail' => $merchantEmail = env('MERCHANT_EMAIL'),
 
+    /**
+     * Default connection that will be used to connect to the API
+     */
     'default' => 'test',
 
     /**
