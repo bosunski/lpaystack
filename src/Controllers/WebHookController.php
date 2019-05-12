@@ -3,7 +3,7 @@
 namespace Unicodeveloper\Paystack\Controllers;
 
 use Illuminate\Routing\Controller;
-use Unicodeveloper\Model\PaystackEvent;
+use Unicodeveloper\Paystack\Model\PaystackEvent;
 use Unicodeveloper\Paystack\Request\WebHookRequest;
 
 class WebHookController extends Controller
