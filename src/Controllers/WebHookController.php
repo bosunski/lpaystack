@@ -12,9 +12,9 @@ class WebHookController extends Controller
     {
         $data = $this->getFormattedPayload($request->all());
 
-        PaystackEvent::create($data);
+        $paystackEvent = PaystackEvent::create($data);
 
-        event($data['event'], $data['payload']);
+        event($data['event'], $paystackEvent);
 
         return response([], 200);
     }

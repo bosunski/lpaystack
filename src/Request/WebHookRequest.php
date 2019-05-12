@@ -31,10 +31,12 @@ class WebHookRequest extends FormRequest
 
     protected function getAllowedIps(): Collection
     {
-        return collect([
+        $allowed = collect([
             '52.31.139.75',
             '52.49.173.169',
             '52.214.14.220',
         ]);
+
+        return app()->environment() === "local" ? $allowed->merge(['127.0.0.1']) : $allowed;
     }
 }
