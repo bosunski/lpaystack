@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Xeviant\Paystack\Contract\PaystackEventType;
 
-class CreatePaystackEventsTable extends Migration
+class CreateLaravelPaystackEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreatePaystackEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paystack_events', function (Blueprint $table) {
+        Schema::create('laravel_paystack_events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('event', $this->getEventTypes());
             $table->text('payload');
