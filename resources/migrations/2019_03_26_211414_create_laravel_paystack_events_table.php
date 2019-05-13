@@ -29,7 +29,7 @@ class CreateLaravelPaystackEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paystack_events');
+        Schema::dropIfExists('laravel_paystack_events');
     }
 
     /**
