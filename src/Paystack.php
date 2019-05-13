@@ -20,7 +20,7 @@ class Paystack
     /**
      * Transaction Verification Successful
      */
-    const VERIFICATION_SUCCESSFUL = 'Verification successful';
+    const VERIFICATION_SUCCESSFUL = 'success';
 
     /**
      *  Invalid Transaction reference
@@ -150,14 +150,11 @@ class Paystack
     {
         $this->verifyTransactionAtGateway();
 
-        $result = $this->getResponse()['message'];
+        $result = $this->getResponse()['status'];
 
         switch ($result) {
             case self::VERIFICATION_SUCCESSFUL:
                 $validate = true;
-                break;
-            case self::INVALID_TRANSACTION_REFERENCE:
-                $validate = false;
                 break;
             default:
                 $validate = false;
