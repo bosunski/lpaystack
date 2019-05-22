@@ -1,16 +1,12 @@
 {
-    "name": "unicodeveloper/laravel-paystack",
+    "name": "xeviant/laravel-paystack",
     "description": "A Laravel 5 Package for Paystack",
     "keywords": ["php","github", "laravel","Open Source","payments", "subscription", "paystack", "paystack.co","laravel 5"],
     "license": "MIT",
     "authors": [
       {
-        "name": "unicodeveloper",
-        "email": "prosperotemuyiwa@gmail.com"
-      },
-      {
-        "name": "iamfunsho",
-        "email": "info@devfunsho.com"
+        "name": "bosunski",
+        "email": "bosunski@gmail.com"
       }
    ],
    "minimum-stability": "dev",
