@@ -25,7 +25,8 @@ class WebHookRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'data' => 'required',
+            'event' => 'required',
         ];
     }
 
