@@ -1,10 +1,27 @@
 <?php
 
-namespace Unicodeveloper\Paystack\Controllers;
+/**
+ *
+ * This file is part of the Xeviant Paystack package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package         Paystack
+ * @version         1.0
+ * @author          Olatunbosun Egberinde
+ * @license         MIT Licence
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @link            https://github.com/bosunski/lpaystack
+ *
+ */
+
+
+namespace Xeviant\LaravelPaystack\Controllers;
 
 use Illuminate\Routing\Controller;
-use Unicodeveloper\Paystack\Model\PaystackEvent;
-use Unicodeveloper\Paystack\Request\WebHookRequest;
+use Xeviant\LaravelPaystack\Model\PaystackEvent;
+use Xeviant\LaravelPaystack\Request\WebHookRequest;
 
 class WebHookController extends Controller
 {

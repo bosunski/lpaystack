@@ -28,12 +28,12 @@
    },
    "autoload": {
         "psr-4": {
-          "Unicodeveloper\\Paystack\\": "src/"
+          "Xeviant\\LaravelPaystack\\": "src/"
         }
    },
    "autoload-dev": {
         "psr-4": {
-            "Unicodeveloper\\Paystack\\Test\\": "tests"
+            "Xeviant\\LaravelPaystack\\Test\\": "tests"
         }
     },
     "scripts": {

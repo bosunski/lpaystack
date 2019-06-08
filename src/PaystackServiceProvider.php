@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\Paystack;
+namespace Xeviant\LaravelPaystack;
 
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Application as LaravelApp;
@@ -44,7 +44,7 @@ class PaystackServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $config = realpath($raw = __DIR__.'/../resources/config/paystack.php') ?: $raw;
+        $config = realpath($rawPath = __DIR__.'/../resources/config/paystack.php') ?: $rawPath;
 
         if ($this->app instanceof LaravelApp && $this->app->runningInConsole()) {
             $this->publishes([

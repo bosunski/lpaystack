@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\Paystack;
+namespace Xeviant\LaravelPaystack;
 
-use Unicodeveloper\Paystack\Exceptions\PaymentVerificationFailedException;
+use Xeviant\LaravelPaystack\Exceptions\PaymentVerificationFailedException;
 
 class Paystack
 {

@@ -2,23 +2,30 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the Laravel Paystack package.
+/**
  *
- * (c) Prosper Otemuyiwa <prosperotemuyiwa@gmail.com>
+ * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @package         Paystack
+ * @version         1.0
+ * @author          Olatunbosun Egberinde
+ * @license         MIT Licence
+ * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
+ * @link            https://github.com/bosunski/lpaystack
+ *
  */
 
-namespace Unicodeveloper\Paystack;
+namespace Xeviant\LaravelPaystack;
 
 
 use Closure;
 use Illuminate\Contracts\Cache\Factory;
 use Madewithlove\IlluminatePsrCacheBridge\Laravel\CacheItemPool;
-use Unicodeveloper\Paystack\Event\EventHandler;
-use Unicodeveloper\Paystack\Http\ClientBuilder;
+use Xeviant\LaravelPaystack\Event\EventHandler;
+use Xeviant\LaravelPaystack\Http\ClientBuilder;
 use Xeviant\Paystack\App\PaystackApplication;
 use Xeviant\Paystack\Client;
 use Xeviant\Paystack\Config;
