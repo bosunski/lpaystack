@@ -14,7 +14,7 @@ class WebHookRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->getAllowedIps()->containsStrict($this->ip());
+        return $this->getAllowedIps()->containsStrict($this->ip()) && $this->hasValidSignature();
     }
 
     /**
@@ -39,5 +39,16 @@ class WebHookRequest extends FormRequest
         ]);
 
         return app()->environment() === "local" ? $allowed->merge(['127.0.0.1']) : $allowed;
+    }
+
+    protected function hasValidSignature(): bool
+    {
+        return $this->hasHeader('X-Paystack-Signature') && $this->signatureMatches();
+    }
+
+    protected function signatureMatches(): bool
+    {
+        return app()->environment() === "local" ? true :
+            $this->header('X-Paystack-Signature') === hash_hmac('sha512', app('paystack')->getConnectionConfig()['secretKey'], '');
     }
 }
