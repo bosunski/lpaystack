@@ -14,9 +14,9 @@
   "require": {
     "php": "^7.1.3",
     "illuminate/support": "^5.7",
-    "xeviant/paystack": "dev-collections",
     "graham-campbell/cache-plugin": "^1.1",
-    "graham-campbell/manager": "^4.2"
+    "graham-campbell/manager": "^4.2",
+    "xeviant/paystack": "^1.0"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
