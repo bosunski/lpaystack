@@ -41,7 +41,7 @@ class PaystackServiceProviderTest extends AbstractTestCase
         $this->assertIsInjectable(Client::class);
 
         $original = $this->app['paystack.connection'];
-        $this->app['paystack']->reconnect();
+        $this->app['xeviant.paystack']->reconnect();
         $new = $this->app['paystack.connection'];
 
         $this->assertNotSame($original, $new);

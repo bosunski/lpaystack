@@ -72,7 +72,7 @@ class PaystackServiceProvider extends ServiceProvider
     */
     public function register()
     {
-        $this->app->bind('laravel-paystack', function () {
+        $this->app->bind('xeviant.paystack', function () {
             return new Paystack;
         });
 
@@ -106,14 +106,14 @@ class PaystackServiceProvider extends ServiceProvider
      */
     protected function registerPaystackManager()
     {
-        $this->app->singleton('paystack', function (Container $container) {
+        $this->app->singleton('xeviant.paystack', function (Container $container) {
             $config = $container['config'];
             $factory = $container['paystack.factory'];
 
             return new PaystackManager($config, $factory);
         });
 
-        $this->app->alias('paystack', PaystackManager::class);
+        $this->app->alias('xeviant.paystack', PaystackManager::class);
 
         return $this;
     }
@@ -126,7 +126,7 @@ class PaystackServiceProvider extends ServiceProvider
     protected function registerCoreBindings()
     {
         $this->app->bind('paystack.connection', function (Container $container) {
-           $manager = $container['paystack'];
+           $manager = $container['xeviant.paystack'];
 
            return $manager->connection();
         });
@@ -143,7 +143,7 @@ class PaystackServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'paystack',
+            'xeviant.paystack',
             'paystack.factory',
             'laravel-paystack',
             'paystack.connection',

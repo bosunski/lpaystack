@@ -40,7 +40,7 @@ class PaystackTest extends AbstractTestCase
      */
     protected function getFacadeAccessor()
     {
-        return 'paystack';
+        return 'xeviant.paystack';
     }
 
     /**
