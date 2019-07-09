@@ -9,11 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\Paystack\Exceptions;
+namespace Xeviant\LaravelPaystack\Exceptions;
 
 use Exception;
 
 class IsNullException extends Exception
 {
-
 }
