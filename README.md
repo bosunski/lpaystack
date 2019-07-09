@@ -6,6 +6,7 @@
 <p align="center">
     <a href="https://travis-ci.org/bosunski/lpaystack"><img src="https://travis-ci.com/bosunski/lpaystack.svg?branch=master" alt="Build Status"></a>
     <a href="https://github.com/bosunski/lpaystack/releases"><img src="https://img.shields.io/packagist/v/xeviant/laravel-paystack.svg" alt="Latest Release"></a>
+    <a href="https://packagist.org/xeviant/laravel-paystack"><img src="https://img.shields.io/packagist/dt/xeviant/laravel-paystack.svg" alt="Downloads"></a>
     <a href="https://github.com/bosunski/lpaystack/blob/master/LICENSE"><img src="https://img.shields.io/github/license/bosunski/laravel-paystack.svg" alt="License"></a>
 </p>
 
