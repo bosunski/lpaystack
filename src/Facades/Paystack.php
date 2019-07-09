@@ -31,6 +31,6 @@ class Paystack extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'paystack';
+        return 'xeviant.paystack';
     }
 }
