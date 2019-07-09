@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\Paystack\Facades;
+namespace Xeviant\LaravelPaystack\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
