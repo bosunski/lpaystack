@@ -3,23 +3,21 @@
 declare(strict_types=1);
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/lpaystack
  *
+ * @link            https://github.com/bosunski/lpaystack
  */
 
 namespace Xeviant\LaravelPaystack\Http;
-
 
 use GrahamCampbell\CachePlugin\CachePlugin;
 use Http\Client\Common\Plugin\Cache\Generator\CacheKeyGenerator;
@@ -29,10 +27,11 @@ use Xeviant\Paystack\HttpClient\Builder;
 class ClientBuilder extends Builder
 {
     /**
-     * Adds Cache Plugin to builder
+     * Adds Cache Plugin to builder.
      *
      * @param CacheItemPoolInterface $cacheItemPool
-     * @param array $config
+     * @param array                  $config
+     *
      * @throws \ReflectionException
      */
     public function addCache(CacheItemPoolInterface $cacheItemPool, array $config = [])
@@ -47,7 +46,8 @@ class ClientBuilder extends Builder
      *
      * @param CacheItemPoolInterface $cacheItemPool
      * @param CacheKeyGenerator|null $generator
-     * @param int|null $lifetime
+     * @param int|null               $lifetime
+     *
      * @throws \ReflectionException
      */
     protected function setCachePlugin(CacheItemPoolInterface $cacheItemPool, CacheKeyGenerator $generator = null, int $lifetime = null): void
@@ -58,11 +58,13 @@ class ClientBuilder extends Builder
     }
 
     /**
-     * Retrieves the value of a builder property
+     * Retrieves the value of a builder property.
      *
      * @param string $name
-     * @return mixed
+     *
      * @throws \ReflectionException
+     *
+     * @return mixed
      */
     protected function getPropertyValue(string $name)
     {
@@ -70,10 +72,11 @@ class ClientBuilder extends Builder
     }
 
     /**
-     * Sets the value of a builder property
+     * Sets the value of a builder property.
      *
      * @param string $name
      * @param $value
+     *
      * @throws \ReflectionException
      */
     protected function setPropertyValue(string $name, $value)
@@ -82,11 +85,13 @@ class ClientBuilder extends Builder
     }
 
     /**
-     * Gets the builder reflection property for the given name
+     * Gets the builder reflection property for the given name.
      *
      * @param string $name
-     * @return \ReflectionProperty
+     *
      * @throws \ReflectionException
+     *
+     * @return \ReflectionProperty
      */
     protected static function getProperty(string $name)
     {

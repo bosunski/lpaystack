@@ -15,5 +15,4 @@ use Exception;
 
 class PaymentVerificationFailedException extends Exception
 {
-
 }
