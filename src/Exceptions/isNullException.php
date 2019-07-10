@@ -13,6 +13,6 @@ namespace Xeviant\LaravelPaystack\Exceptions;
 
 use Exception;
 
-class IsNullException extends Exception
+class isNullException extends Exception
 {
 }

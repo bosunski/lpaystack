@@ -35,20 +35,20 @@ class PaystackTest extends TestCase
     {
         $array = $this->paystack->shouldReceive('getAllCustomers')->andReturn(['prosper']);
 
-        $this->assertEquals('array', gettype(array($array)));
+        $this->assertEquals('array', gettype([$array]));
     }
 
     public function testAllTransactionsAreReturned()
     {
         $array = $this->paystack->shouldReceive('getAllTransactions')->andReturn(['transactions']);
 
-        $this->assertEquals('array', gettype(array($array)));
+        $this->assertEquals('array', gettype([$array]));
     }
 
     public function testAllPlansAreReturned()
     {
         $array = $this->paystack->shouldReceive('getAllPlans')->andReturn([]);
 
-        $this->assertEquals('array', gettype(array($array)));
+        $this->assertEquals('array', gettype([$array]));
     }
 }

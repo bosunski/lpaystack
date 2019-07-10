@@ -3,23 +3,21 @@
 declare(strict_types=1);
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/lpaystack
  *
+ * @link            https://github.com/bosunski/lpaystack
  */
 
 namespace Xeviant\LaravelPaystack\Test;
-
 
 use GrahamCampbell\TestBench\AbstractTestCase as AbstractTestBenchTestCase;
 use Illuminate\Cache\Repository;
@@ -31,7 +29,6 @@ use Xeviant\Paystack\Exception\InvalidArgumentException;
 
 final class PaystackFactoryTest extends AbstractTestBenchTestCase
 {
-
     public function testIfFactoryCanBeCreatedWithMake()
     {
         $factory = $this->getFactory();
@@ -70,9 +67,6 @@ final class PaystackFactoryTest extends AbstractTestBenchTestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /**
-     *
-     */
     public function testMakeShouldFailIfKeysAreNotSet()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -81,10 +75,10 @@ final class PaystackFactoryTest extends AbstractTestBenchTestCase
         $factory[0]->make([]);
     }
 
-
     protected function getFactory()
     {
         $cache = Mockery::mock(Factory::class);
+
         return [new PaystackFactory($cache), $cache];
     }
 }
