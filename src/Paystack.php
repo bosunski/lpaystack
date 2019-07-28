@@ -18,23 +18,25 @@ use Xeviant\LaravelPaystack\Exceptions\PaymentVerificationFailedException;
 class Paystack
 {
     /**
-     * Transaction Verification Successful
+     * Transaction Verification Successful.
      */
     const VERIFICATION_SUCCESSFUL = 'success';
 
     /**
-     *  Invalid Transaction reference
+     *  Invalid Transaction reference.
      */
-    const INVALID_TRANSACTION_REFERENCE = "Invalid transaction reference";
+    const INVALID_TRANSACTION_REFERENCE = 'Invalid transaction reference';
 
     /**
-     *  Response from requests made to Paystack
+     *  Response from requests made to Paystack.
+     *
      * @var array
      */
     protected $response;
 
     /**
-     * Authorization Url - Paystack payment page
+     * Authorization Url - Paystack payment page.
+     *
      * @var string
      */
     protected $authorizationUrl;
@@ -45,7 +47,7 @@ class Paystack
     private $paystack;
 
     /**
-     * Authorization URL
+     * Authorization URL.
      *
      * @var string
      */
@@ -59,25 +61,26 @@ class Paystack
         $this->paystack = app()->make('paystack.connection');
     }
 
-
     /**
      * Initiate a payment request to Paystack
      * Included the option to pass the payload to this method for situations
-     * when the payload is built on the fly (not passed to the controller from a view)
+     * when the payload is built on the fly (not passed to the controller from a view).
+     *
      * @param null $data
+     *
      * @return Paystack
      */
     public function makePaymentRequest($data = null)
     {
-        if ( $data == null ) {
+        if ($data == null) {
             $data = [
-                "amount" => intval(request()->amount),
-                "reference" => request()->reference,
-                "email" => request()->email,
-                "plan" => request()->plan,
-                "first_name" => request()->first_name,
-                "last_name" => request()->last_name,
-                "callback_url" => request()->callback_url,
+                'amount'       => intval(request()->amount),
+                'reference'    => request()->reference,
+                'email'        => request()->email,
+                'plan'         => request()->plan,
+                'first_name'   => request()->first_name,
+                'last_name'    => request()->last_name,
+                'callback_url' => request()->callback_url,
                 /*
                 * to allow use of metadata on Paystack dashboard and a means to return additional data back to redirect url
                 * form need an input field: <input type="hidden" name="metadata" value="{{ json_encode($array) }}" >
@@ -91,7 +94,7 @@ class Paystack
                 *
                 *                                  ]
                 */
-                'metadata' => request()->metadata
+                'metadata' => request()->metadata,
             ];
 
             // Remove the fields which were not sent (value would be null)
@@ -104,12 +107,14 @@ class Paystack
     }
 
     /**
-     * Get the authorization url from the callback response
+     * Get the authorization url from the callback response.
+     *
+     * @param null $data
      * @return Paystack
      */
-    public function getAuthorizationUrl()
+    public function getAuthorizationUrl($data = null)
     {
-        $this->makePaymentRequest();
+        $this->makePaymentRequest($data);
 
         $this->url = $this->getResponse()['authorization_url'];
 
@@ -119,8 +124,10 @@ class Paystack
     /**
      * Get the authorization callback response
      * In situations where Laravel serves as an backend for a detached UI, the api cannot redirect
-     * and might need to take different actions based on the success or not of the transaction
+     * and might need to take different actions based on the success or not of the transaction.
+     *
      * @param $data
+     *
      * @return array
      */
     public function getAuthorizationResponse($data)
@@ -133,7 +140,7 @@ class Paystack
     }
 
     /**
-     * Hit Paystack Gateway to Verify that the transaction is valid
+     * Hit Paystack Gateway to Verify that the transaction is valid.
      */
     private function verifyTransactionAtGateway()
     {
@@ -143,8 +150,9 @@ class Paystack
     }
 
     /**
-     * True or false condition whether the transaction is verified
-     * @return boolean
+     * True or false condition whether the transaction is verified.
+     *
+     * @return bool
      */
     public function isTransactionVerificationValid()
     {
@@ -165,21 +173,23 @@ class Paystack
     }
 
     /**
-     * Get Payment details if the transaction was verified successfully
-     * @return array
+     * Get Payment details if the transaction was verified successfully.
+     *
      * @throws PaymentVerificationFailedException
+     *
+     * @return array
      */
     public function getPaymentData()
     {
         if ($this->isTransactionVerificationValid()) {
             return $this->getResponse();
         } else {
-            throw new PaymentVerificationFailedException("Invalid Transaction Reference");
+            throw new PaymentVerificationFailedException('Invalid Transaction Reference');
         }
     }
 
     /**
-     * Fluent method to redirect to Paystack Payment Page
+     * Fluent method to redirect to Paystack Payment Page.
      */
     public function redirectNow()
     {
@@ -187,7 +197,8 @@ class Paystack
     }
 
     /**
-     * Get Access code from transaction callback response
+     * Get Access code from transaction callback response.
+     *
      * @return string
      */
     public function getAccessCode()
@@ -196,7 +207,8 @@ class Paystack
     }
 
     /**
-     * Generate a Unique Transaction Reference
+     * Generate a Unique Transaction Reference.
+     *
      * @return string
      */
     public function genTranxRef()
@@ -205,7 +217,8 @@ class Paystack
     }
 
     /**
-     * Get all the customers that have made transactions on your platform
+     * Get all the customers that have made transactions on your platform.
+     *
      * @return array
      */
     public function getAllCustomers()
@@ -214,7 +227,8 @@ class Paystack
     }
 
     /**
-     * Get all the plans that you have on Paystack
+     * Get all the plans that you have on Paystack.
+     *
      * @return array
      */
     public function getAllPlans()
@@ -223,7 +237,8 @@ class Paystack
     }
 
     /**
-     * Get all the transactions that have happened overtime
+     * Get all the transactions that have happened overtime.
+     *
      * @return array
      */
     public function getAllTransactions()
@@ -232,7 +247,8 @@ class Paystack
     }
 
     /**
-     * Get the whole response from a get operation
+     * Get the whole response from a get operation.
+     *
      * @return array
      */
     private function getResponse()
@@ -241,26 +257,28 @@ class Paystack
     }
 
     /**
-     * Create a plan
+     * Create a plan.
      */
     public function createPlan()
     {
         $data = [
-            "name" => request()->name,
-            "description" => request()->desc,
-            "amount" => intval(request()->amount),
-            "interval" => request()->interval,
-            "send_invoices" => request()->send_invoices,
-            "send_sms" => request()->send_sms,
-            "currency" => request()->currency,
+            'name'          => request()->name,
+            'description'   => request()->desc,
+            'amount'        => intval(request()->amount),
+            'interval'      => request()->interval,
+            'send_invoices' => request()->send_invoices,
+            'send_sms'      => request()->send_sms,
+            'currency'      => request()->currency,
         ];
 
         return $this->paystack->plans()->create($data);
     }
 
     /**
-     * Fetch any plan based on its plan id or code
+     * Fetch any plan based on its plan id or code.
+     *
      * @param $planCode
+     *
      * @return array
      */
     public function fetchPlan($planCode)
@@ -269,36 +287,38 @@ class Paystack
     }
 
     /**
-     * Update any plan's details based on its id or code
+     * Update any plan's details based on its id or code.
+     *
      * @param $planCode
+     *
      * @return array
      */
     public function updatePlan($planCode)
     {
         $data = [
-            "name" => request()->name,
-            "description" => request()->desc,
-            "amount" => intval(request()->amount),
-            "interval" => request()->interval,
-            "send_invoices" => request()->send_invoices,
-            "send_sms" => request()->send_sms,
-            "currency" => request()->currency,
+            'name'          => request()->name,
+            'description'   => request()->desc,
+            'amount'        => intval(request()->amount),
+            'interval'      => request()->interval,
+            'send_invoices' => request()->send_invoices,
+            'send_sms'      => request()->send_sms,
+            'currency'      => request()->currency,
         ];
 
-       return $this->paystack->plans()->update($planCode, $data);
+        return $this->paystack->plans()->update($planCode, $data);
     }
 
     /**
-     * Create a customer
+     * Create a customer.
      */
     public function createCustomer()
     {
         $data = [
-            "email" => request()->email,
-            "first_name" => request()->fname,
-            "last_name" => request()->lname,
-            "phone" => request()->phone,
-            "metadata" => request()->additional_info /* key => value pairs array */
+            'email'      => request()->email,
+            'first_name' => request()->fname,
+            'last_name'  => request()->lname,
+            'phone'      => request()->phone,
+            'metadata'   => request()->additional_info, /* key => value pairs array */
 
         ];
 
@@ -306,8 +326,10 @@ class Paystack
     }
 
     /**
-     * Fetch a customer based on id or code
+     * Fetch a customer based on id or code.
+     *
      * @param $customerId
+     *
      * @return array
      */
     public function fetchCustomer($customerId)
@@ -316,18 +338,20 @@ class Paystack
     }
 
     /**
-     * Update a customer's details based on their id or code
+     * Update a customer's details based on their id or code.
+     *
      * @param $customerId
+     *
      * @return array
      */
     public function updateCustomer($customerId)
     {
         $data = [
-            "email" => request()->email,
-            "first_name" => request()->fname,
-            "last_name" => request()->lname,
-            "phone" => request()->phone,
-            "metadata" => request()->additional_info /* key => value pairs array */
+            'email'      => request()->email,
+            'first_name' => request()->fname,
+            'last_name'  => request()->lname,
+            'phone'      => request()->phone,
+            'metadata'   => request()->additional_info, /* key => value pairs array */
 
         ];
 
@@ -335,15 +359,16 @@ class Paystack
     }
 
     /**
-     * Export transactions in .CSV
+     * Export transactions in .CSV.
+     *
      * @return array
      */
     public function exportTransactions()
     {
         $data = [
-            "from" => request()->from,
-            "to" => request()->to,
-            'settled' => request()->settled
+            'from'    => request()->from,
+            'to'      => request()->to,
+            'settled' => request()->settled,
         ];
 
         return $this->paystack->transactions()->export($data);
@@ -355,9 +380,9 @@ class Paystack
     public function createSubscription()
     {
         $data = [
-            "customer" => request()->customer, //Customer email or code
-            "plan" => request()->plan,
-            "authorization" => request()->authorization_code
+            'customer'      => request()->customer, //Customer email or code
+            'plan'          => request()->plan,
+            'authorization' => request()->authorization_code,
         ];
 
         return $this->paystack->subscriptions()->create($data);
@@ -374,9 +399,10 @@ class Paystack
     }
 
     /**
-     * Get customer subscriptions
+     * Get customer subscriptions.
      *
-     * @param integer $customerId
+     * @param int $customerId
+     *
      * @return array
      */
     public function getCustomerSubscriptions($customerId)
@@ -385,9 +411,10 @@ class Paystack
     }
 
     /**
-     * Get plan subscriptions
+     * Get plan subscriptions.
      *
-     * @param  integer $planId
+     * @param int $planId
+     *
      * @return array
      */
     public function getPlanSubscriptions($planId)
@@ -396,36 +423,40 @@ class Paystack
     }
 
     /**
-     * Enable a subscription using the subscription code and token
+     * Enable a subscription using the subscription code and token.
+     *
      * @return array
      */
     public function enableSubscription()
     {
         $data = [
-            "code" => request()->code,
-            "token" => request()->token,
+            'code'  => request()->code,
+            'token' => request()->token,
         ];
 
         return $this->paystack->subscrptions()->enable($data);
     }
 
     /**
-     * Disable a subscription using the subscription code and token
+     * Disable a subscription using the subscription code and token.
+     *
      * @return array
      */
     public function disableSubscription()
     {
         $data = [
-            "code" => request()->code,
-            "token" => request()->token,
+            'code'  => request()->code,
+            'token' => request()->token,
         ];
 
         return $this->paystack->subscriptions()->disabled($data);
     }
 
     /**
-     * Fetch details about a certain subscription
+     * Fetch details about a certain subscription.
+     *
      * @param mixed $subscriptionId
+     *
      * @return array
      */
     public function fetchSubscription($subscriptionId)
@@ -434,21 +465,22 @@ class Paystack
     }
 
     /**
-     * Create pages you can share with users using the returned slug
+     * Create pages you can share with users using the returned slug.
      */
     public function createPage()
     {
         $data = [
-            "name" => request()->name,
-            "description" => request()->description,
-            "amount" => request()->amount
+            'name'        => request()->name,
+            'description' => request()->description,
+            'amount'      => request()->amount,
         ];
 
         return $this->paystack->pages()->create($data);
     }
 
     /**
-     * Fetches all the pages the merchant has
+     * Fetches all the pages the merchant has.
+     *
      * @return array
      */
     public function getAllPages()
@@ -457,8 +489,10 @@ class Paystack
     }
 
     /**
-     * Fetch details about a certain page using its id or slug
+     * Fetch details about a certain page using its id or slug.
+     *
      * @param mixed $pageId
+     *
      * @return array
      */
     public function fetchPage($pageId)
@@ -467,47 +501,50 @@ class Paystack
     }
 
     /**
-     * Update the details about a particular page
+     * Update the details about a particular page.
+     *
      * @param $pageId
+     *
      * @return array
      */
     public function updatePage($pageId)
     {
         $data = [
-            "name" => request()->name,
-            "description" => request()->description,
-            "amount" => request()->amount
+            'name'        => request()->name,
+            'description' => request()->description,
+            'amount'      => request()->amount,
         ];
 
         return $this->paystack->pages()->update($pageId, $data);
     }
 
     /**
-     * Creates a subaccount to be used for split payments . Required    params are business_name , settlement_bank , account_number ,   percentage_charge
+     * Creates a subaccount to be used for split payments . Required    params are business_name , settlement_bank , account_number ,   percentage_charge.
      *
      * @return array
      */
-
     public function createSubAccount()
     {
         $data = [
-            "business_name" => request()->business_name,
-            "settlement_bank" => request()->settlement_bank,
-            "account_number" => request()->account_number,
-            "percentage_charge" => request()->percentage_charge,
-            "primary_contact_email" => request()->primary_contact_email,
-            "primary_contact_name" => request()->primary_contact_name,
-            "primary_contact_phone" => request()->primary_contact_phone,
-            "metadata" => request()->metadata,
-            'settlement_schedule' => request()->settlement_schedule
+            'business_name'         => request()->business_name,
+            'settlement_bank'       => request()->settlement_bank,
+            'account_number'        => request()->account_number,
+            'percentage_charge'     => request()->percentage_charge,
+            'primary_contact_email' => request()->primary_contact_email,
+            'primary_contact_name'  => request()->primary_contact_name,
+            'primary_contact_phone' => request()->primary_contact_phone,
+            'metadata'              => request()->metadata,
+            'settlement_schedule'   => request()->settlement_schedule,
         ];
 
         return $this->paystack->subAccount()->create($data);
     }
 
     /**
-     * Fetches details of a subaccount
+     * Fetches details of a subaccount.
+     *
      * @param subaccount code
+     *
      * @return array
      */
     public function fetchSubAccount($subAccountCode)
@@ -516,9 +553,11 @@ class Paystack
     }
 
     /**
-     * Lists all the subaccounts associated with the account
+     * Lists all the subaccounts associated with the account.
+     *
      * @param $perPage - Specifies how many records to retrieve per page , $page - SPecifies exactly what page to retrieve
      * @param $page
+     *
      * @return array
      */
     public function listSubAccounts($perPage = null, $page = null)
@@ -526,26 +565,26 @@ class Paystack
         return $this->paystack->subAccount()->list(['perPage' => $perPage, 'page' => $page]);
     }
 
-
     /**
-     * Updates a sub-account to be used for split payments . Required params are business_name , settlement_bank , account_number , percentage_charge
+     * Updates a sub-account to be used for split payments . Required params are business_name , settlement_bank , account_number , percentage_charge.
+     *
      * @param sub-account code
+     *
      * @return array
      */
-
     public function updateSubAccount($subAccountCode)
     {
         $data = [
-            "business_name" => request()->business_name,
-            "settlement_bank" => request()->settlement_bank,
-            "account_number" => request()->account_number,
-            "percentage_charge" => request()->percentage_charge,
-            "description" => request()->description,
-            "primary_contact_email" => request()->primary_contact_email,
-            "primary_contact_name" => request()->primary_contact_name,
-            "primary_contact_phone" => request()->primary_contact_phone,
-            "metadata" => request()->metadata,
-            'settlement_schedule' => request()->settlement_schedule
+            'business_name'         => request()->business_name,
+            'settlement_bank'       => request()->settlement_bank,
+            'account_number'        => request()->account_number,
+            'percentage_charge'     => request()->percentage_charge,
+            'description'           => request()->description,
+            'primary_contact_email' => request()->primary_contact_email,
+            'primary_contact_name'  => request()->primary_contact_name,
+            'primary_contact_phone' => request()->primary_contact_phone,
+            'metadata'              => request()->metadata,
+            'settlement_schedule'   => request()->settlement_schedule,
         ];
 
         return $this->paystack->subAccount()->update($subAccountCode, $data);

@@ -1,19 +1,18 @@
 <?php
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/lpaystack
  *
+ * @link            https://github.com/bosunski/lpaystack
  */
 
 namespace Xeviant\LaravelPaystack\Request;
@@ -41,7 +40,7 @@ class WebHookRequest extends FormRequest
     public function rules()
     {
         return [
-            'data' => 'required',
+            'data'  => 'required',
             'event' => 'required',
         ];
     }
@@ -54,7 +53,7 @@ class WebHookRequest extends FormRequest
             '52.214.14.220',
         ]);
 
-        return app()->environment() === "local" ? $allowed->merge(['127.0.0.1']) : $allowed;
+        return app()->environment() === 'local' ? $allowed->merge(['127.0.0.1']) : $allowed;
     }
 
     protected function hasValidSignature(): bool
@@ -64,7 +63,7 @@ class WebHookRequest extends FormRequest
 
     protected function signatureMatches(): bool
     {
-        return app()->environment() === "local" ? true :
+        return app()->environment() === 'local' ? true :
             $this->header('X-Paystack-Signature') === hash_hmac('sha512', app('paystack')->getConnectionConfig()['secretKey'], '');
     }
 }

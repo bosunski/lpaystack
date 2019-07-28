@@ -3,23 +3,21 @@
 declare(strict_types=1);
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/lpaystack
  *
+ * @link            https://github.com/bosunski/lpaystack
  */
 
 namespace Xeviant\LaravelPaystack;
-
 
 use Closure;
 use Illuminate\Contracts\Cache\Factory;
@@ -36,7 +34,7 @@ use Xeviant\Paystack\HttpClient\Builder;
 class PaystackFactory
 {
     /**
-     * Laravel Cache Instance
+     * Laravel Cache Instance.
      *
      * @var Factory
      */
@@ -53,12 +51,14 @@ class PaystackFactory
     }
 
     /**
-     * Creates A Paystack Client Object
+     * Creates A Paystack Client Object.
      *
      * @param array $config
-     * @return Client
+     *
      * @throws \ReflectionException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Client
      */
     public function make(array $config)
     {
@@ -68,7 +68,7 @@ class PaystackFactory
 
         $compatibleConfig = $this->createCompatibleConfiguration($config);
 
-        $app = new PaystackApplication;
+        $app = new PaystackApplication();
 
         $app->instance(Builder::class, $this->getBuilder($config));
         $app->instance(PaystackConfigContract::class, $compatibleConfig);
@@ -76,15 +76,16 @@ class PaystackFactory
         $client = new Client($app);
 
         // We register a Global Event listener
-        $client->getEvent()->listen('*', Closure::fromCallable([new EventHandler, 'handle']));
+        $client->getEvent()->listen('*', Closure::fromCallable([new EventHandler(), 'handle']));
 
         return $client;
     }
 
     /**
-     * Check to see if Secret key doesn't exists
+     * Check to see if Secret key doesn't exists.
      *
      * @param array $config
+     *
      * @return bool
      */
     protected function secretKeyDoesNotExist(array $config)
@@ -93,9 +94,10 @@ class PaystackFactory
     }
 
     /**
-     * Creates a Compatible Paystack Client Configuration from a configuration array
+     * Creates a Compatible Paystack Client Configuration from a configuration array.
      *
      * @param array $config
+     *
      * @return Config
      */
     public function createCompatibleConfiguration(array $config)
@@ -104,18 +106,20 @@ class PaystackFactory
     }
 
     /**
-     * Prepares and retrieves the Paystack client builder
+     * Prepares and retrieves the Paystack client builder.
      *
      * @param $config
-     * @return ClientBuilder
+     *
      * @throws \ReflectionException
+     *
+     * @return ClientBuilder
      */
     protected function getBuilder($config)
     {
         $builder = new ClientBuilder();
 
         if ($this->cache && class_exists(CacheItemPool::class) && $cache = array_get($config, 'cache')) {
-            $builder->addCache(new CacheItemPool($this->cache->store( $cache === true ? null : $cache)));
+            $builder->addCache(new CacheItemPool($this->cache->store($cache === true ? null : $cache)));
         }
 
         return $builder;

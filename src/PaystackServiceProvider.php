@@ -3,19 +3,18 @@
 declare(strict_types=1);
 
 /**
- *
  * This file is part of the Xeviant Paystack package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package         Paystack
  * @version         1.0
+ *
  * @author          Olatunbosun Egberinde
  * @license         MIT Licence
  * @copyright       (c) Olatunbosun Egberinde <bosunski@gmail.com>
- * @link            https://github.com/bosunski/lpaystack
  *
+ * @link            https://github.com/bosunski/lpaystack
  */
 
 namespace Xeviant\LaravelPaystack;
@@ -23,12 +22,11 @@ namespace Xeviant\LaravelPaystack;
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Application as LaravelApp;
 use Illuminate\Support\ServiceProvider;
-use Xeviant\Paystack\Client;
 use Laravel\Lumen\Application as LumenApp;
+use Xeviant\Paystack\Client;
 
 class PaystackServiceProvider extends ServiceProvider
 {
-
     /*
     * Indicates if loading of the provider is deferred.
     *
@@ -37,8 +35,8 @@ class PaystackServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-    * Publishes all the config file this package needs to function
-    */
+     * Publishes all the config file this package needs to function.
+     */
     public function boot()
     {
         $this->setupConfig();
@@ -47,7 +45,7 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Sets up Paystack configuration file
+     * Sets up Paystack configuration file.
      */
     protected function setupConfig()
     {
@@ -55,7 +53,7 @@ class PaystackServiceProvider extends ServiceProvider
 
         if ($this->app instanceof LaravelApp && $this->app->runningInConsole()) {
             $this->publishes([
-                $config => config_path('paystack.php')
+                $config => config_path('paystack.php'),
             ]);
         } elseif ($this->app instanceof LumenApp) {
             $this->app->configure('paystack');
@@ -75,12 +73,12 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-    * Register the application services.
-    */
+     * Register the application services.
+     */
     public function register()
     {
         $this->app->bind('xeviant.paystack', function () {
-            return new Paystack;
+            return new Paystack();
         });
 
         $this->registerPaystackFactory()
@@ -89,7 +87,7 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers the Paystack factory
+     * Registers the Paystack factory.
      *
      * @return $this
      */
@@ -107,7 +105,7 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers Paystack manager
+     * Registers Paystack manager.
      *
      * @return $this
      */
@@ -126,16 +124,16 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers the Core Paystack Binding
+     * Registers the Core Paystack Binding.
      *
      * @return $this
      */
     protected function registerCoreBindings()
     {
         $this->app->bind('paystack.connection', function (Container $container) {
-           $manager = $container['xeviant.paystack'];
+            $manager = $container['xeviant.paystack'];
 
-           return $manager->connection();
+            return $manager->connection();
         });
 
         $this->app->alias('paystack.connection', Client::class);
@@ -144,9 +142,10 @@ class PaystackServiceProvider extends ServiceProvider
     }
 
     /**
-    * Get the services provided by the provider
-    * @return array
-    */
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
     public function provides()
     {
         return [

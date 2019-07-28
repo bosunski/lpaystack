@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Xeviant\LaravelPaystack;
 
-/**
+/*
  * @method \Xeviant\Paystack\Api\Customers customers()
  * @method \Xeviant\Paystack\Api\Balance balance()
  * @method \Xeviant\Paystack\Api\Bank bank()
@@ -33,7 +33,6 @@ namespace Xeviant\LaravelPaystack;
  * @method \Xeviant\Paystack\Api\Transfers transfers()
  */
 
-
 use GrahamCampbell\Manager\AbstractManager;
 use Illuminate\Config\Repository;
 
@@ -47,7 +46,7 @@ class PaystackManager extends AbstractManager
     /**
      * PaystackManager constructor.
      *
-     * @param Repository $repository
+     * @param Repository      $repository
      * @param PaystackFactory $factory
      */
     public function __construct(Repository $repository, PaystackFactory $factory)
@@ -61,9 +60,10 @@ class PaystackManager extends AbstractManager
      *
      * @param array $config
      *
-     * @return \Xeviant\Paystack\Client
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
+     *
+     * @return \Xeviant\Paystack\Client
      */
     protected function createConnection(array $config)
     {
@@ -81,7 +81,7 @@ class PaystackManager extends AbstractManager
     }
 
     /**
-     * Gets the instance of the Paystack Factory
+     * Gets the instance of the Paystack Factory.
      *
      * @return PaystackFactory
      */
@@ -105,12 +105,12 @@ class PaystackManager extends AbstractManager
     }
 
     /**
-     * Gets the Legacy Paystack Object from v1 of this package
+     * Gets the Legacy Paystack Object from v1 of this package.
      *
      * @return Paystack
      */
     protected function getLegacyObject()
     {
-        return new Paystack;
+        return new Paystack();
     }
 }
