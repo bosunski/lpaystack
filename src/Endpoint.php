@@ -1,6 +1,6 @@
 <?php
 
-namespace Unicodeveloper\Paystack;
+namespace Xeviant\LaravelPaystack;
 
 class Endpoint
 {
