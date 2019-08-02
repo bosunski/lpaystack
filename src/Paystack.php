@@ -107,6 +107,52 @@ class Paystack
     }
 
     /**
+     * Charge a customer via reusable authorization on Paystack
+     * Included the option to pass the payload to this method for situations
+     * when the payload is built on the fly (not passed to the controller from a view).
+     *
+     * @param null $data
+     *
+     * @return array
+     */
+    public function chargeAuthorization($data = null)
+    {
+        if ($data == null) {
+            $data = [
+                'authorization_code' => request()->authorization_code,
+                'amount'             => intval(request()->amount),
+                'reference'          => request()->reference,
+                'email'              => request()->email,
+                'plan'               => request()->plan,
+                'subaccount'         => request()->subaccount,
+                'transaction_charge' => request()->transaction_charge,
+                'invoice_limit'      => request()->invoice_limit,
+                /*
+                * to allow use of metadata on Paystack dashboard and a means to return additional data back to redirect url
+                * form need an input field: <input type="hidden" name="metadata" value="{{ json_encode($array) }}" >
+                *array must be set up as: $array = [ 'custom_fields' => [
+                *                                                            ['display_name' => "Cart Id", "variable_name" => "cart_id", "value" => "2"],
+                *                                                            ['display_name' => "Sex", "variable_name" => "sex", "value" => "female"],
+                *                                                            .
+                *                                                            .
+                *                                                            .
+                *                                                        ]
+                *
+                *                                  ]
+                */
+                'metadata' => request()->metadata,
+            ];
+
+            // Remove the fields which were not sent (value would be null)
+            array_filter($data);
+        }
+
+        $this->response = $this->paystack->transactions()->charge($data);
+
+        return $this->getResponse();
+    }
+
+    /**
      * Get the authorization url from the callback response.
      *
      * @param null $data
