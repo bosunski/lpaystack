@@ -192,11 +192,21 @@ class Paystack
      *
      * @return array|string
      */
-    public function checkAuthorization(array $data)
+    public function checkAuthorization($data = null)
     {
-        $this->response = $this->paystack->transactions()->checkAuthorization($data);
+        if ($data == null) {
+            $data = [
+                'authorization_code' => request()->authorization_code,
+                'amount'             => intval(request()->amount),
+                'email'              => request()->email,
+                'currency'           => request()->currency,
+            ];
 
-        return $this->getResponse();
+            // Remove the fields which were not sent (value would be null)
+            array_filter($data);
+        }
+
+        return $this->paystack->transactions()->checkAuthorization($data);
     }
 
    /**
@@ -211,10 +221,8 @@ class Paystack
         $data = [
             'authorization_code' => $authcode
         ];
-        
-        $this->response = $this->paystack->customers()->deactivateAuthorization($data);
 
-        return $this->getResponse();
+        return $this->paystack->customers()->deactivateAuthorization($data);
     }
 
 
@@ -435,6 +443,25 @@ class Paystack
         ];
 
         return $this->paystack->customers()->update($customerId, $data);
+    }
+
+    /**
+     * Refund a Transaction based on reference or id.
+     *
+     * @param $transaction
+     *
+     * @return array
+     */
+    public function refundTransaction($transaction)
+    {
+        $data = [
+            'transaction'   => $transaction,
+            'amount'        => request()->amount,
+            'customer_note' => request()->customer_note,
+            'merchant_note' => request()->merchant_note,
+        ];
+
+        return $this->paystack->refund()->create($data);
     }
 
     /**
