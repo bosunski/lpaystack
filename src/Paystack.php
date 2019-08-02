@@ -186,6 +186,20 @@ class Paystack
     }
 
     /**
+     * Checks a authorization.
+     *
+     * @param array $data
+     *
+     * @return array|string
+     */
+    public function checkAuthorization(array $data)
+    {
+        $this->response = $this->paystack->transactions()->checkAuthorization($data);
+
+        return $this->getResponse();
+    }
+
+    /**
      * Hit Paystack Gateway to Verify that the transaction is valid.
      */
     private function verifyTransactionAtGateway()
