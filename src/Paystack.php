@@ -199,6 +199,25 @@ class Paystack
         return $this->getResponse();
     }
 
+   /**
+     * Deactivates an authorization.
+     *
+     * @param array $data
+     *
+     * @return array|string
+     */
+    public function deactivateAuthorization(string $authcode)
+    {
+        $data = [
+            'authorization_code' => $authcode
+        ];
+        
+        $this->response = $this->paystack->customers()->deactivateAuthorization($data);
+
+        return $this->getResponse();
+    }
+
+
     /**
      * Hit Paystack Gateway to Verify that the transaction is valid.
      */
