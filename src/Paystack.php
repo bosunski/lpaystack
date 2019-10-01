@@ -62,6 +62,16 @@ class Paystack
     }
 
     /**
+     * Set request data for making a Paystack request
+     */
+    public function setRequestData($data = [])
+    {
+        request()->add($data);
+
+        return $this;
+    }
+
+    /**
      * Initiate a payment request to Paystack
      * Included the option to pass the payload to this method for situations
      * when the payload is built on the fly (not passed to the controller from a view).
@@ -110,6 +120,7 @@ class Paystack
      * Get the authorization url from the callback response.
      *
      * @param null $data
+     * 
      * @return Paystack
      */
     public function getAuthorizationUrl($data = null)
