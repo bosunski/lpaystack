@@ -2,9 +2,20 @@ language: php
 
 php:
   - 7.1
+  - 7.2
+  - 7.3
   - hhvm
 
+env:
+  matrix:
+    - LARAVEL=5.7.*
+    - LARAVEL=5.8.*
+    - LARAVEL=^6.0
+
 matrix:
+    exclude:
+        - php: 7.1
+          env: LARAVEL=^6.0
     allow_failures:
         - php: hhvm
 
