@@ -58,12 +58,12 @@ class WebHookRequest extends FormRequest
 
     protected function hasValidSignature(): bool
     {
-        return $this->hasHeader('X-Paystack-Signature') && $this->signatureMatches();
+        return app()->environment() === 'local' ? true :
+            $this->hasHeader('X-Paystack-Signature') && $this->signatureMatches();
     }
 
     protected function signatureMatches(): bool
     {
-        return app()->environment() === 'local' ? true :
-            $this->header('X-Paystack-Signature') === hash_hmac('sha512', app('paystack')->getConnectionConfig()['secretKey'], '');
+        return $this->header('X-Paystack-Signature') === hash_hmac('sha512', app('paystack')->getConnectionConfig()['secretKey'], '');
     }
 }
