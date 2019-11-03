@@ -110,6 +110,7 @@ class Paystack
      * Get the authorization url from the callback response.
      *
      * @param null $data
+     *
      * @return Paystack
      */
     public function getAuthorizationUrl($data = null)
