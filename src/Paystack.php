@@ -115,11 +115,7 @@ class Paystack
      */
     public function createAuthorizationUrl($data = null)
     {
-        $this->makePaymentRequest($data);
-
-        $this->url = $this->getResponse()['authorization_url'];
-
-        return $this;
+        return $this->getAuthorizationUrl($data = null);
     }
 
     /**
