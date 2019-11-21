@@ -107,7 +107,23 @@ class Paystack
     }
 
     /**
-     * Get the authorization url from the callback response.
+     * Create the authorization url from the callback response.
+     *
+     * @param null $data
+     *
+     * @return Paystack
+     */
+    public function createAuthorizationUrl($data = null)
+    {
+        $this->makePaymentRequest($data);
+
+        $this->url = $this->getResponse()['authorization_url'];
+
+        return $this;
+    }
+
+    /**
+     * Create the authorization url from the callback response.
      *
      * @param null $data
      *
@@ -120,6 +136,16 @@ class Paystack
         $this->url = $this->getResponse()['authorization_url'];
 
         return $this;
+    }
+
+    /**
+     * Get the authorization url from the callback response.
+     *
+     * @return String
+     */
+    public function getAuthorizedUrl()
+    {
+        return $this->url;
     }
 
     /**
@@ -193,6 +219,14 @@ class Paystack
      * Fluent method to redirect to Paystack Payment Page.
      */
     public function redirectNow()
+    {
+        return redirect($this->url);
+    }
+
+    /**
+     * Another Fluent method to redirect to Paystack Payment Page.
+     */
+    public function redirectToAuthorizedUrl()
     {
         return redirect($this->url);
     }
