@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\Paystack\Test;
+namespace Xeviant\LaravelPaystack\Test;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ class PaystackTest extends TestCase
 
     public function setUp()
     {
-        $this->paystack = m::mock('Unicodeveloper\Paystack\Paystack');
+        $this->paystack = m::mock('Xeviant\Paystack\Paystack');
         $this->mock = m::mock('GuzzleHttp\Client');
     }
 
