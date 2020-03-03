@@ -157,7 +157,7 @@ class Paystack
     {
         $this->makePaymentRequest($data);
 
-        $this->url = $this->getResponse()['authorization_url'];
+        $this->url = $this->getResponse()['data']['authorization_url'];
 
         return $this->getResponse();
     }
