@@ -137,7 +137,7 @@ class Paystack
     /**
      * Get the authorization url from the callback response.
      *
-     * @return String
+     * @return string
      */
     public function getAuthorizedUrl()
     {
