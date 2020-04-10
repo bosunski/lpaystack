@@ -13,7 +13,7 @@
   "prefer-stable": true,
   "require": {
     "php": "^7.1.3",
-    "illuminate/support": "~5.7.0|~5.8.0|^6.0",
+    "illuminate/support": "~5.7.0|~5.8.0|^6.0|^7.0",
     "graham-campbell/cache-plugin": "^1.1",
     "graham-campbell/manager": "^4.2",
     "xeviant/paystack": "^1.0.0"
