@@ -13,20 +13,22 @@ declare(strict_types=1);
 
 namespace Unicodeveloper\Paystack\Test;
 
+use GuzzleHttp\Client;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
+use Unicodeveloper\Paystack\Paystack;
 
 class PaystackTest extends TestCase
 {
     protected $paystack;
 
-    public function setUp()
+    protected function setUp(): void
     {
-        $this->paystack = m::mock('Unicodeveloper\Paystack\Paystack');
-        $this->mock = m::mock('GuzzleHttp\Client');
+        $this->paystack = m::mock(Paystack::class);
+        $this->mock = m::mock(Client::class);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
